@@ -1,6 +1,6 @@
 /* =========================================================================
    Shared styles for lrybintsev.com
-   Used by: index.html, driving-test.html
+   Used by: index.html and all blog post pages
    ========================================================================= */
 
 *,
@@ -322,47 +322,6 @@ section { padding: 5rem 2.5rem; }
   margin-top: 0.8rem;
 }
 
-/* EVENTS */
-#events {
-  background: var(--darker);
-  padding: 5rem 2.5rem;
-}
-#events .section-heading { color: #fff; }
-.events-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border-dark);
-}
-.event-card {
-  background: var(--darker-soft);
-  padding: 2rem 1.8rem;
-  display: flex;
-  gap: 1.2rem;
-  transition: background 0.2s;
-}
-.event-card:hover { background: var(--darker-hover); }
-.event-number {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #5a5200;
-  padding-top: 0.2rem;
-  flex-shrink: 0;
-}
-.event-title {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--cream-dark);
-  margin-bottom: 0.6rem;
-  line-height: 1.2;
-}
-.event-desc {
-  font-size: 0.85rem;
-  color: #9a9070;
-  line-height: 1.65;
-}
-
 /* PROJECTS */
 .projects-grid {
   display: grid;
@@ -484,6 +443,59 @@ section { padding: 5rem 2.5rem; }
 }
 .wr-card-link:hover { text-decoration: underline; }
 .wr-card-link--pink { color: var(--pink); }
+
+/* Carousel: JS pages through cards by toggling the [hidden] attribute.
+   Explicit rule needed because grid children otherwise override hidden. */
+.wr-card[hidden] { display: none; }
+
+.wr-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.wr-carousel-controls[hidden] { display: none; }
+
+.wr-carousel-arrow {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--orange);
+  background: none;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.wr-carousel-arrow:hover { opacity: 0.7; }
+.wr-carousel-arrow:disabled {
+  color: var(--text-muted);
+  opacity: 0.35;
+  cursor: default;
+}
+
+.wr-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.wr-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: var(--text-muted);
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+.wr-dot:hover { opacity: 0.7; }
+.wr-dot[aria-current="true"] {
+  background: var(--orange);
+  opacity: 1;
+}
 
 /* EASTER EGG */
 #easteregg {
@@ -780,7 +792,6 @@ section { padding: 5rem 2.5rem; }
   .work-grid       { grid-template-columns: 1fr 1fr; }
   .work-card:nth-child(3n) { border-right: 1px solid var(--card-border); }
   .work-card:nth-child(2n) { border-right: none; }
-  .events-grid     { grid-template-columns: 1fr; }
   .projects-grid   { grid-template-columns: 1fr 1fr; }
   .bg-grid         { grid-template-columns: 1fr 1fr; }
   .beyond-grid     { grid-template-columns: 1fr 1fr; }
@@ -798,7 +809,6 @@ section { padding: 5rem 2.5rem; }
   .beyond-grid     { grid-template-columns: 1fr 1fr; }
 
   section,
-  #events,
   #beyond,
   #connect          { padding: 3.5rem 1.25rem; }
   .site-nav         { padding: 0 1.25rem; }
