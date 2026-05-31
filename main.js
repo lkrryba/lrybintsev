@@ -36,10 +36,11 @@
   const ionceBtn = document.getElementById('ionce-button');
   if (ionceBtn) {
     let i = 0;
+    const ionceLabel = ionceBtn.querySelector('.ionce-label');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const render = (item) => {
-      ionceBtn.textContent = item.text;
+      ionceLabel.textContent = item.text;
       ionceBtn.className = `ionce-button ionce-button--${item.color}`;
     };
 
