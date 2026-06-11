@@ -53,9 +53,11 @@
         return;
       }
       ionceBtn.style.opacity = '0';
+      ionceBtn.style.transform = 'translateY(3px)';
       setTimeout(() => {
         render(item);
         ionceBtn.style.opacity = '1';
+        ionceBtn.style.transform = 'none';
       }, 150);
     });
   }
@@ -139,6 +141,192 @@
       });
 
       render();
+    }
+  }
+
+  // ---------------------------------------------------------------------
+  // YouTube Shorts shelf
+  //
+  // Dynamic mode: set YT_API_KEY to a YouTube Data API v3 key (restrict it
+  // to this domain in Google Cloud Console). The newest shorts are fetched
+  // from the channel's shorts playlist and cached for 6 hours.
+  //
+  // Fallback mode: if the key is empty or the API call fails, the manual
+  // list below is used instead.
+  //
+  // Cards are click-to-play: thumbnail first, iframe embed swapped in on
+  // click, so page load stays fast.
+  // ---------------------------------------------------------------------
+  const YT_API_KEY = ''; // <- paste key here for auto-updating shorts
+  // Channel ID UCcVIHAWGsOndLoxm9GEe03g -> shorts playlist (UC -> UUSH).
+  // Unofficial but widely used; the manual list below covers us if it breaks.
+  const YT_SHORTS_PLAYLIST = 'UUSHcVIHAWGsOndLoxm9GEe03g';
+  const SHORTS_LIMIT = 12;
+  const SHORTS_CACHE_KEY = 'shorts-cache-v1';
+  const SHORTS_CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+
+  // Manual fallback list: id is the part after youtube.com/shorts/
+  const shortsFallback = [
+    { id: "ljE81wXtH0U", title: "Where will AI em dash epidemic end?" },
+    { id: "eugAWJV0uXk", title: "I tried Claude Fable and I have questions" },
+    { id: "nJ9A57QxdD0", title: "AI was rude again and apparently its my fault" },
+    { id: "YNVh87DCNQw", title: "Claude did a thing and now I\u2019m scared" },
+    { id: "-hgE787vI24", title: "More keyboard shortcuts I use in my daily workflow \u2728" },
+    { id: "Xw5moFOJ-NQ", title: "When AI is rude featuring my cat \ud83d\udc08\u200d\u2b1b" },
+  ];
+
+  const shelf = document.getElementById('shorts-shelf');
+  const shelfLabel = document.getElementById('shorts-label');
+
+  const renderShorts = (items) => {
+    if (!items.length) return;
+    shelf.removeAttribute('hidden');
+    shelfLabel.removeAttribute('hidden');
+    shelf.innerHTML = '';
+
+    items.forEach(({ id, title }) => {
+      const card = document.createElement('div');
+      card.className = 'short-card';
+
+      const playBtn = document.createElement('button');
+      playBtn.type = 'button';
+      playBtn.className = 'short-card-play';
+      playBtn.setAttribute('aria-label', `Play short: ${title}`);
+
+      const img = document.createElement('img');
+      img.src = `https://i.ytimg.com/vi/${id}/oar2.jpg`;
+      img.alt = title;
+      img.loading = 'lazy';
+      img.addEventListener('error', () => {
+        // Fall back to the standard thumbnail if no vertical one exists.
+        if (!img.dataset.fallback) {
+          img.dataset.fallback = '1';
+          img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        }
+      });
+
+      const badge = document.createElement('span');
+      badge.className = 'short-card-badge';
+      badge.textContent = 'Short';
+
+      const label = document.createElement('span');
+      label.className = 'short-card-title';
+      label.textContent = title;
+
+      playBtn.append(img, badge, label);
+
+      // Click to play: swap the thumbnail for an embed, in place.
+      playBtn.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1`;
+        iframe.title = title;
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+        iframe.allowFullscreen = true;
+        card.replaceChildren(iframe);
+      }, { once: true });
+
+      card.appendChild(playBtn);
+      shelf.appendChild(card);
+    });
+  };
+
+  const loadShorts = async () => {
+    if (!YT_API_KEY) {
+      renderShorts(shortsFallback);
+      return;
+    }
+
+    // Serve from cache when fresh.
+    try {
+      const cached = JSON.parse(localStorage.getItem(SHORTS_CACHE_KEY));
+      if (cached && Date.now() - cached.time < SHORTS_CACHE_TTL) {
+        renderShorts(cached.items);
+        return;
+      }
+    } catch (e) { /* ignore bad cache */ }
+
+    try {
+      const url = 'https://www.googleapis.com/youtube/v3/playlistItems' +
+        `?part=snippet&maxResults=${SHORTS_LIMIT}` +
+        `&playlistId=${YT_SHORTS_PLAYLIST}&key=${YT_API_KEY}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      const data = await res.json();
+      const items = (data.items || []).map((it) => ({
+        id: it.snippet.resourceId.videoId,
+        title: it.snippet.title,
+      }));
+      if (!items.length) throw new Error('No items');
+      try {
+        localStorage.setItem(SHORTS_CACHE_KEY, JSON.stringify({ time: Date.now(), items }));
+      } catch (e) { /* storage full/blocked; fine */ }
+      renderShorts(items);
+    } catch (e) {
+      renderShorts(shortsFallback);
+    }
+  };
+
+  if (shelf && shelfLabel) loadShorts();
+
+  // Scroll reveals + stat count-up.
+  // Classes are only added with JS running and motion allowed, so the page
+  // is fully visible without JS and for reduced-motion users.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    const revealTargets = document.querySelectorAll(
+      'main section:not(#hero) .section-heading, ' +
+      '.work-card, .project-card, .bg-card, .wr-card, .beyond-item, .connect-inner'
+    );
+
+    revealTargets.forEach((el) => {
+      el.classList.add('reveal');
+      // Gentle stagger between siblings, capped so nothing feels slow.
+      const i = Array.from(el.parentElement.children).indexOf(el);
+      el.style.transitionDelay = `${Math.min(i, 3) * 45}ms`;
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+
+    revealTargets.forEach((el) => revealObserver.observe(el));
+
+    // Count the stats up from 0 the first time the stats bar scrolls into view.
+    const statsBar = document.querySelector('.stats-bar');
+    if (statsBar) {
+      const animateStat = (el) => {
+        const match = el.textContent.trim().match(/^(\d+)(.*)$/);
+        if (!match) return;
+        const target = parseInt(match[1], 10);
+        const suffix = match[2];
+        const duration = 700;
+        let start;
+        const tick = (ts) => {
+          if (start === undefined) start = ts;
+          const t = Math.min((ts - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            statsBar.querySelectorAll('.stat-number').forEach(animateStat);
+            statsObserver.unobserve(statsBar);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      statsObserver.observe(statsBar);
     }
   }
 })();

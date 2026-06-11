@@ -15,11 +15,30 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Outfit:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Outfit:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
 </head>
 <body>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-archive" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></symbol>
+    <symbol id="i-barbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M6.5 12h11"/></symbol>
+    <symbol id="i-cat" viewBox="0 0 24 24"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.2.43-2.37 1-3.44 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26A9.3 9.3 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v2.5"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-lifebuoy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></symbol>
+    <symbol id="i-grad-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></symbol>
+  </svg>
 
   <nav class="site-nav" aria-label="Primary">
     <a href="#hero" class="nav-name">Leanne Rybintsev</a>
@@ -50,9 +69,9 @@
         <div class="hero-actions">
           <a href="#section-work" class="btn-primary">See my work</a>
           <div class="social-links">
-            <a href="https://www.linkedin.com/in/leannerybintsev/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://github.com/lkrryba/lkrryba" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.youtube.com/@CodewithLeanne" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://www.linkedin.com/in/leannerybintsev/" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a>
+            <a href="https://github.com/lkrryba/lkrryba" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a>
+            <a href="https://www.youtube.com/@CodewithLeanne" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg>YouTube</a>
           </div>
         </div>
       </div>
@@ -82,42 +101,42 @@
       <div class="work-grid">
 
         <button type="button" class="work-card" aria-expanded="false">
-          <div class="work-card-tag">Email &middot; Scrimba</div>
+          <div class="work-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-mail"/></svg>Email &middot; Scrimba</div>
           <div class="work-card-title">Email System &amp; Campaigns</div>
           <span class="work-card-arrow" aria-hidden="true">+</span>
           <div class="work-card-detail"><div>Full ownership of Scrimba's email system and content. Over 9 million sends to a list of 250,000. Built campaigns, sequences, and the infrastructure behind them.</div></div>
         </button>
 
         <button type="button" class="work-card" aria-expanded="false">
-          <div class="work-card-tag">Platform &middot; Scrimba</div>
+          <div class="work-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-code"/></svg>Platform &middot; Scrimba</div>
           <div class="work-card-title">Site Updates &amp; Development</div>
           <span class="work-card-arrow" aria-hidden="true">+</span>
           <div class="work-card-detail"><div>Contributes to development and maintenance of the Scrimba platform. Building and shipping features, fixes, and improvements in Imba.</div></div>
         </button>
 
         <button type="button" class="work-card" aria-expanded="false">
-          <div class="work-card-tag">Operations &middot; Scrimba</div>
+          <div class="work-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-wrench"/></svg>Operations &middot; Scrimba</div>
           <div class="work-card-title">Internal Tools &amp; Apps</div>
           <span class="work-card-arrow" aria-hidden="true">+</span>
           <div class="work-card-detail"><div>Built internal tooling to support operations across the company. Identifying the gap, designing the solution, shipping it.</div></div>
         </button>
 
         <button type="button" class="work-card" aria-expanded="false">
-          <div class="work-card-tag">Support &middot; Scrimba</div>
+          <div class="work-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-lifebuoy"/></svg>Support &middot; Scrimba</div>
           <div class="work-card-title">Student Success Page</div>
           <span class="work-card-arrow" aria-hidden="true">+</span>
           <div class="work-card-detail"><div>Created and maintains Scrimba's Student Success page. A resource hub for learners navigating the platform and their coding journey.</div></div>
         </button>
 
         <button type="button" class="work-card" aria-expanded="false">
-          <div class="work-card-tag">Editorial &middot; Scrimba</div>
+          <div class="work-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-pencil"/></svg>Editorial &middot; Scrimba</div>
           <div class="work-card-title">Course Review &amp; Editorial</div>
           <span class="work-card-arrow" aria-hidden="true">+</span>
           <div class="work-card-detail"><div>Reviewed and edited courses across the Scrimba catalogue. Technical accuracy, clarity, and learner experience all checked before release.</div></div>
         </button>
 
         <button type="button" class="work-card" aria-expanded="false">
-          <div class="work-card-tag">Community &middot; Scrimba</div>
+          <div class="work-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-users"/></svg>Community &middot; Scrimba</div>
           <div class="work-card-title">Events I&rsquo;ve Run</div>
           <span class="work-card-arrow" aria-hidden="true">+</span>
           <div class="work-card-detail"><div><strong>JavaScriptmas</strong> &mdash; Annual festive coding challenge series running throughout December, with daily challenges and a live grand finale stream. Run across multiple years for tens of thousands of Scrimba learners.<br /><br /><strong>Weekly Web Dev Challenge</strong> &mdash; Recurring community challenge series giving Scrimba learners a weekly prompt to build, share, and get feedback. Ran consistently to keep the community active between courses.<br /><br /><strong>Scrimba Challenge Weeks</strong> &mdash; Intensive challenge weeks pushing community members to build and ship in a structured, time-boxed format. Designed from scratch and run end to end.</div></div>
@@ -131,17 +150,17 @@
       <h2 class="section-heading" id="projects-heading">Things I&rsquo;ve <em>Built.</em></h2>
       <div class="projects-grid">
         <article class="project-card">
-          <div class="project-tag">Automation &middot; Google Suite</div>
+          <div class="project-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-receipt"/></svg>Automation &middot; Google Suite</div>
           <h3 class="project-title">Receipt Extractor</h3>
           <p class="project-desc">Automatically pulls receipt PDFs from emails and saves them to Google Drive. Built to solve a real and deeply tedious personal problem.</p>
         </article>
         <article class="project-card">
-          <div class="project-tag">Chrome Extension</div>
+          <div class="project-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-cat"/></svg>Chrome Extension</div>
           <h3 class="project-title">Vinted Cat Slap</h3>
           <p class="project-desc">A Chrome extension that hides Shein and similar fast-fashion listings from Vinted. Built because life is too short to scroll past things you don&rsquo;t want to see.</p>
         </article>
         <article class="project-card">
-          <div class="project-tag">Automation &middot; Python</div>
+          <div class="project-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-book-open"/></svg>Automation &middot; Python</div>
           <h3 class="project-title">Book Journal Updater</h3>
           <p class="project-desc">A Python script that appends new book entries to a GitHub reading journal and pushes the changes automatically. Removes all friction from keeping the journal up to date.</p>
         </article>
@@ -153,17 +172,17 @@
       <h2 class="section-heading" id="background-heading">Where I&rsquo;ve <em>Been.</em></h2>
       <div class="bg-grid">
         <article class="bg-card">
-          <div class="bg-card-tag">Software</div>
+          <div class="bg-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-code"/></svg>Software</div>
           <h3 class="bg-card-title">Web Developer</h3>
           <p class="bg-card-desc">Built client web pages at Red Balloon Design for brands including Mizuno Golf and The Restaurant Group. Design sprints, cross-browser testing, and responsive builds.</p>
         </article>
         <article class="bg-card">
-          <div class="bg-card-tag">Operations &amp; Project Management</div>
+          <div class="bg-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-clipboard"/></svg>Operations &amp; Project Management</div>
           <h3 class="bg-card-title">Scrum Master &amp; Administrator</h3>
           <p class="bg-card-desc">Scrum Master at the University of Brighton, running an agile team in 3-week sprints via Asana and SharePoint. Pattern of process documentation and operational improvement across multiple roles.</p>
         </article>
         <article class="bg-card">
-          <div class="bg-card-tag">Education &amp; Languages</div>
+          <div class="bg-card-tag"><svg class="icon tag-icon" aria-hidden="true"><use href="#i-grad-cap"/></svg>Education &amp; Languages</div>
           <h3 class="bg-card-title">BA, MA &amp; CELTA</h3>
           <p class="bg-card-desc">King&rsquo;s College London (BA) and Goldsmiths (MA). CELTA qualified, taught English in Germany, Austria, Ukraine, and the UK. Languages: English, German, Russian (in progress).</p>
         </article>
@@ -175,21 +194,6 @@
       <h2 class="section-heading" id="written-heading">Things I&rsquo;ve <em>Written.</em></h2>
       <div class="wr-grid">
         <!-- WRITTEN:START — auto-generated by build-written.js. Run `node build-written.js` after adding a post. Do not edit by hand. -->
-        <article class="wr-card">
-          <div class="wr-card-type">Blog</div>
-          <div class="wr-card-title">Don't Take Your Laptop on a Camel</div>
-          <a href="dont-take-your-laptop-on-a-camel.html" class="wr-card-link">Read ↗</a>
-        </article>
-        <article class="wr-card">
-          <div class="wr-card-type">Blog</div>
-          <div class="wr-card-title">I Don't Want to Hear About WFH vs. the Office Ever Again</div>
-          <a href="wfh-debate.html" class="wr-card-link">Read ↗</a>
-        </article>
-        <article class="wr-card">
-          <div class="wr-card-type">Blog</div>
-          <div class="wr-card-title">You Can't Stand at the Top of the Water Slide Forever</div>
-          <a href="water-slide.html" class="wr-card-link">Read ↗</a>
-        </article>
         <article class="wr-card">
           <div class="wr-card-type">Blog</div>
           <div class="wr-card-title">No One Misses Writing CSS by Hand. I Don't Care.</div>
@@ -204,6 +208,21 @@
           <div class="wr-card-type">Blog</div>
           <div class="wr-card-title">How to Fake Confidence Until It Works</div>
           <a href="driving-test.html" class="wr-card-link">Read ↗</a>
+        </article>
+        <article class="wr-card">
+          <div class="wr-card-type">Blog</div>
+          <div class="wr-card-title">You Can't Stand at the Top of the Water Slide Forever</div>
+          <a href="water-slide.html" class="wr-card-link">Read ↗</a>
+        </article>
+        <article class="wr-card">
+          <div class="wr-card-type">Blog</div>
+          <div class="wr-card-title">I Don't Want to Hear About WFH vs. the Office Ever Again</div>
+          <a href="wfh-debate.html" class="wr-card-link">Read ↗</a>
+        </article>
+        <article class="wr-card">
+          <div class="wr-card-type">Blog</div>
+          <div class="wr-card-title">Don't Take Your Laptop on a Camel</div>
+          <a href="dont-take-your-laptop-on-a-camel.html" class="wr-card-link">Read ↗</a>
         </article>
         <article class="wr-card">
           <div class="wr-card-type">Medium</div>
@@ -270,6 +289,9 @@
           <a href="https://www.youtube.com/watch?v=E3DlMZElmPM" target="_blank" rel="noopener noreferrer" class="wr-card-link wr-card-link--pink">Open ↗</a>
         </article>
       </div>
+
+      <h3 class="wr-subsection-label wr-subsection-label--pink" id="shorts-label" hidden>Shorts</h3>
+      <div class="shorts-shelf" id="shorts-shelf" hidden aria-label="YouTube Shorts"></div>
     </section>
 
     <section id="beyond" aria-labelledby="beyond-heading">
@@ -277,22 +299,22 @@
       <h2 class="section-heading" id="beyond-heading">Beyond the <em>Screen.</em></h2>
       <div class="beyond-grid">
         <article class="beyond-item">
-          <div class="beyond-icon" aria-hidden="true">📚</div>
+          <div class="beyond-icon" aria-hidden="true"><svg class="icon"><use href="#i-book-open"/></svg></div>
           <h3 class="beyond-label">Reader</h3>
           <p class="beyond-text">Avid reader with a <a href="https://github.com/lkrryba/reading-journal" target="_blank" rel="noopener noreferrer">reading journal on GitHub</a>. Top topics: Japanese fiction, Scandinavian crime, and anything about tidying up.</p>
         </article>
         <article class="beyond-item">
-          <div class="beyond-icon" aria-hidden="true">🗂️</div>
-          <h3 class="beyond-label">Declutterer</h3>
+          <div class="beyond-icon beyond-icon--pink" aria-hidden="true"><svg class="icon"><use href="#i-archive"/></svg></div>
+          <h3 class="beyond-label beyond-label--pink">Declutterer</h3>
           <p class="beyond-text">Strong opinions about systems, storage, and why most people own too much stuff. Available for consultation.</p>
         </article>
         <article class="beyond-item">
-          <div class="beyond-icon" aria-hidden="true">🏋️</div>
-          <h3 class="beyond-label">CrossFit</h3>
+          <div class="beyond-icon beyond-icon--pink" aria-hidden="true"><svg class="icon"><use href="#i-barbell"/></svg></div>
+          <h3 class="beyond-label beyond-label--pink">CrossFit</h3>
           <p class="beyond-text">Regular CrossFit trainee. Deadlift: 55kg, Strict Press 20kg, Bench Press 27.5kg, Back squat: 40kg.</p>
         </article>
         <article class="beyond-item">
-          <div class="beyond-icon" aria-hidden="true">🐱</div>
+          <div class="beyond-icon" aria-hidden="true"><svg class="icon"><use href="#i-cat"/></svg></div>
           <h3 class="beyond-label">Cat Person</h3>
           <p class="beyond-text">Four cats. Unreliable colleagues. Excellent at sitting on keyboards at critical moments.</p>
         </article>
@@ -308,8 +330,8 @@
           <div class="connect-tag">Get in touch</div>
           <p class="connect-text">Open to collaborations and conversations about building things that actually work.</p>
           <div class="connect-actions">
-            <a href="mailto:hello@lrybintsev.com" class="btn-email">Send me an email</a>
-            <a href="https://www.linkedin.com/in/leannerybintsev/" target="_blank" rel="noopener noreferrer" class="connect-social">LinkedIn</a>
+            <a href="mailto:hello@lrybintsev.com" class="btn-email"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Send me an email</a>
+            <a href="https://www.linkedin.com/in/leannerybintsev/" target="_blank" rel="noopener noreferrer" class="connect-social"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a>
           </div>
 
           <div class="newsletter-divider">

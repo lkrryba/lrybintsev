@@ -76,7 +76,7 @@
 }
 .post-content p {
   margin-bottom: 1.4rem;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.8;
 }
 .post-content h2 {
@@ -114,10 +114,10 @@
   font-size: 0.68rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--orange-deep);
   margin-bottom: 0.3rem;
 }
-.tip--pink .tip-label { color: var(--pink); }
+.tip--pink .tip-label { color: var(--pink-deep); }
 .tip-text {
   font-size: 0.95rem;
   line-height: 1.65;

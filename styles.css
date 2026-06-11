@@ -23,7 +23,9 @@
 
   --orange: #FA4702;
   --orange-light: #ff6a2b;
+  --orange-deep: #c43800;   /* AA-contrast orange for small text on cream */
   --pink: #FB399A;
+  --pink-deep: #c11270;     /* AA-contrast pink for small text on cream */
 
   --text: #1a1815;
   --text-muted: #6b6560;
@@ -104,9 +106,11 @@ a { color: inherit; }
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--orange-deep);
   margin-bottom: 0.5rem;
 }
+#beyond .section-tag,
+#connect .section-tag { color: var(--orange); } /* dark backgrounds: bright orange passes there */
 .section-heading {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
@@ -333,13 +337,18 @@ section { padding: 5rem 2.5rem; }
   border: 1px solid var(--cream-border);
   padding: 1.6rem;
   border-radius: 2px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(26, 24, 21, 0.06);
 }
 .project-tag {
   font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--orange-deep);
   margin-bottom: 0.6rem;
 }
 .project-title {
@@ -372,7 +381,7 @@ section { padding: 5rem 2.5rem; }
   font-size: 0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--orange-deep);
   margin-bottom: 0.5rem;
 }
 .bg-card-title {
@@ -399,8 +408,8 @@ section { padding: 5rem 2.5rem; }
   padding: 0.6rem 0;
   border-top: 1px solid var(--cream-divider);
 }
-.wr-subsection-label--orange { color: var(--orange); }
-.wr-subsection-label--pink   { color: var(--pink); }
+.wr-subsection-label--orange { color: var(--orange-deep); }
+.wr-subsection-label--pink   { color: var(--pink-deep); }
 
 .wr-grid {
   display: grid;
@@ -414,9 +423,14 @@ section { padding: 5rem 2.5rem; }
   background: var(--cream);
   padding: 1.4rem 1.4rem 2.8rem;
   position: relative;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.25s ease, box-shadow 0.25s ease;
 }
-.wr-card:hover { background: #e8e2d4; }
+.wr-card:hover {
+  background: #e8e2d4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(26, 24, 21, 0.06);
+}
+.wr-card:hover .wr-card-link { transform: translate(1px, -1px); }
 .wr-card-type {
   font-family: var(--font-mono);
   font-size: 0.62rem;
@@ -437,12 +451,13 @@ section { padding: 5rem 2.5rem; }
   left: 1.4rem;
   font-size: 0.72rem;
   font-family: var(--font-mono);
-  color: var(--orange);
+  color: var(--orange-deep);
   text-decoration: none;
+  transition: transform 0.2s ease;
   letter-spacing: 0.06em;
 }
 .wr-card-link:hover { text-decoration: underline; }
-.wr-card-link--pink { color: var(--pink); }
+.wr-card-link--pink { color: var(--pink-deep); }
 
 /* Carousel: JS pages through cards by toggling the [hidden] attribute.
    Explicit rule needed because grid children otherwise override hidden. */
@@ -461,7 +476,7 @@ section { padding: 5rem 2.5rem; }
   font-family: var(--font-mono);
   font-size: 1rem;
   line-height: 1;
-  color: var(--orange);
+  color: var(--orange-deep);
   background: none;
   border: none;
   padding: 0.4rem 0.6rem;
@@ -521,7 +536,7 @@ section { padding: 5rem 2.5rem; }
   font: inherit;
   cursor: pointer;
   display: block;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, transform 0.15s;
 }
 .ionce-label {
   text-decoration: underline dotted;
@@ -571,6 +586,7 @@ section { padding: 5rem 2.5rem; }
   color: var(--orange);
   margin-bottom: 0.5rem;
 }
+.beyond-label--pink { color: var(--pink); }
 .beyond-text {
   font-size: 0.85rem;
   color: #9a9070;
@@ -783,6 +799,114 @@ section { padding: 5rem 2.5rem; }
 .hero-headline   { animation-delay: 0.25s; }
 .hero-bio        { animation-delay: 0.4s; }
 .hero-actions    { animation-delay: 0.5s; }
+
+/* ---------- SHORTS SHELF ---------- */
+.shorts-shelf {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.25rem 0.25rem 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.shorts-shelf::-webkit-scrollbar { height: 6px; }
+.shorts-shelf::-webkit-scrollbar-thumb { background: var(--cream-divider-strong); border-radius: 3px; }
+.short-card {
+  position: relative;
+  flex: 0 0 158px;
+  aspect-ratio: 9 / 16;
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--darker-soft);
+  border: 1px solid var(--cream-border);
+  text-decoration: none;
+  display: block;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.short-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(26, 24, 21, 0.10);
+  border-color: var(--pink);
+}
+.short-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.short-card-play {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font: inherit;
+  text-align: left;
+}
+.short-card iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.short-card-title {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 1.6rem 0.6rem 0.55rem;
+  background: linear-gradient(to top, rgba(4, 2, 0, 0.85), transparent);
+  color: #fff;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+.short-card-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--pink);
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+}
+
+/* ---------- SCROLL REVEALS (classes added by JS; no-JS pages stay visible) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- ICONS (inline SVG sprite) ---------- */
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.125em;
+}
+.tag-icon { margin-right: 0.45em; }
+.social-links .icon { width: 0.95em; height: 0.95em; margin-right: 0.35em; }
+.btn-email .icon,
+.connect-social .icon { margin-right: 0.45em; }
+.beyond-icon { color: var(--orange); }
+.beyond-icon--pink { color: var(--pink); }
+.beyond-icon .icon { width: 1.6rem; height: 1.6rem; stroke-width: 1.75; }
 
 /* =========================================================================
    RESPONSIVE
