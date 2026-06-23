@@ -167,6 +167,7 @@
 
   // Manual fallback list: id is the part after youtube.com/shorts/
   const shortsFallback = [
+    { id: "Fmnx8Z3scsA", title: "Too many tasks? Do this." },
     { id: "ljE81wXtH0U", title: "Where will AI em dash epidemic end?" },
     { id: "eugAWJV0uXk", title: "I tried Claude Fable and I have questions" },
     { id: "nJ9A57QxdD0", title: "AI was rude again and apparently its my fault" },
@@ -194,11 +195,14 @@
       playBtn.setAttribute('aria-label', `Play short: ${title}`);
 
       const img = document.createElement('img');
-      img.src = `https://i.ytimg.com/vi/${id}/oar2.jpg`;
+      // Use the custom thumbnail set on YouTube (served from the standard
+      // endpoints). The `oarN.jpg` variants are YouTube's auto-generated
+      // vertical crops, which ignore the uploaded thumbnail.
+      img.src = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
       img.alt = title;
       img.loading = 'lazy';
       img.addEventListener('error', () => {
-        // Fall back to the standard thumbnail if no vertical one exists.
+        // Fall back to the lower-res custom thumbnail if maxres isn't available.
         if (!img.dataset.fallback) {
           img.dataset.fallback = '1';
           img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;

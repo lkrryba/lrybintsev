@@ -333,10 +333,13 @@ section { padding: 5rem 2.5rem; }
   gap: 1.5rem;
 }
 .project-card {
+  display: block;
   background: var(--cream);
   border: 1px solid var(--cream-border);
   padding: 1.6rem;
   border-radius: 2px;
+  text-decoration: none;
+  color: inherit;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .project-card:hover {
