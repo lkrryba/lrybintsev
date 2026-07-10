@@ -59,6 +59,23 @@
   line-height: 1.65;
 }
 
+/* ---------- AI OBJECTION ---------- */
+.objection-text { max-width: 680px; }
+.objection-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 1.3rem;
+}
+.objection-pull {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--clay-deep);
+  margin-top: 1.8rem;
+}
+
 /* ---------- PRICING ---------- */
 .pricing-grid {
   display: grid;
