@@ -685,6 +685,15 @@ section { padding: 5rem 2.5rem; }
   transition: color 0.2s;
 }
 .connect-social:hover { color: var(--ink); }
+.connect-photo {
+  width: 100%;
+  max-width: 380px;
+  display: block;
+  margin-top: 2rem;
+  border-radius: 6px;
+  border: 1px solid var(--mauve-border-strong);
+}
+
 
 
 
