@@ -796,6 +796,15 @@ section { padding: 5rem 2.5rem; }
 .hero-actions    { animation-delay: 0.5s; }
 
 /* ---------- SHORTS SHELF ---------- */
+.shorts-blurb {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0.6rem 0 1rem;
+  max-width: 480px;
+}
+.shorts-blurb[hidden] { display: none; }
+
 .shorts-shelf {
   display: flex;
   gap: 1rem;

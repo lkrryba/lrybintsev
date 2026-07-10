@@ -183,6 +183,8 @@
     if (!items.length) return;
     shelf.removeAttribute('hidden');
     shelfLabel.removeAttribute('hidden');
+    const shortsBlurb = document.getElementById('shorts-blurb');
+    if (shortsBlurb) shortsBlurb.removeAttribute('hidden');
     shelf.innerHTML = '';
 
     items.forEach(({ id, title }) => {
