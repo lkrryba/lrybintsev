@@ -244,9 +244,9 @@ a { color: inherit; }
 /* SECTIONS */
 section { padding: 5rem 2.5rem; }
 #section-work       { background: var(--paper); }
-#background         { background: var(--paper-dark); }
-#section-written    { background: var(--paper); }
-#section-watchread  { background: var(--paper-dark); }
+#background         { background: var(--paper); border-top: 1px solid var(--paper-divider); }
+#section-written    { background: var(--paper-dark); }
+#section-watchread  { background: var(--paper); }
 
 /* WORK (collapsible cards) */
 .work-grid {
