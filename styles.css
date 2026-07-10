@@ -633,7 +633,7 @@ section { padding: 5rem 2.5rem; }
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
-  max-width: 1100px;
+  max-width: 900px;
 }
 .connect-heading {
   font-family: var(--font-display);
@@ -685,13 +685,6 @@ section { padding: 5rem 2.5rem; }
   transition: color 0.2s;
 }
 .connect-social:hover { color: var(--ink); }
-.connect-photo {
-  width: 100%;
-  display: block;
-  margin-top: 2rem;
-  border-radius: 6px;
-  border: 1px solid var(--mauve-border-strong);
-}
 
 
 
