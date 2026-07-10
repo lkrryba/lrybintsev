@@ -65,6 +65,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   max-width: 820px;
+  align-items: start;
 }
 .price-card {
   background: var(--paper);
