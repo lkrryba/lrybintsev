@@ -159,7 +159,7 @@ a { color: inherit; }
 }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero-photo-large { max-width: 280px; }
+  .hero-photo-large { max-width: 280px; margin-left: auto; margin-right: auto; }
 }
 .hero-avatar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .hero-avatar-wrap {
@@ -995,6 +995,7 @@ section { padding: 5rem 2.5rem; }
   .beyond-grid     { grid-template-columns: 1fr 1fr; }
   .connect-inner   { grid-template-columns: 1fr; gap: 2rem; }
   .connect-right   { padding-top: 0; }
+  .connect-photo   { margin-left: auto; margin-right: auto; }
   .wr-grid         { grid-template-columns: 1fr 1fr; }
 }
 
