@@ -25,7 +25,7 @@ const START = '<!-- WRITTEN:START';
 const END = '<!-- WRITTEN:END -->';
 
 // Files that are NOT blog posts even if they look like one.
-const IGNORE = new Set(['index.html']);
+const IGNORE = new Set(['index.html', 'cv-reviews.html']);
 
 // External articles, in display order (shown after local posts).
 const EXTERNAL_POSTS = [
