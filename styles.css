@@ -643,7 +643,16 @@ section { padding: 5rem 2.5rem; }
   color: var(--ink);
 }
 .connect-heading em { font-style: italic; color: var(--clay-deep); }
-.connect-right { padding-top: 0.5rem; }
+.connect-photo {
+  display: block;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 260px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.connect-right { padding-top: calc(clamp(2.5rem, 5vw, 4rem) * 1.05 + 2rem); }
 .connect-tag {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -985,6 +994,7 @@ section { padding: 5rem 2.5rem; }
   .bg-grid         { grid-template-columns: 1fr 1fr; }
   .beyond-grid     { grid-template-columns: 1fr 1fr; }
   .connect-inner   { grid-template-columns: 1fr; gap: 2rem; }
+  .connect-right   { padding-top: 0; }
   .wr-grid         { grid-template-columns: 1fr 1fr; }
 }
 
