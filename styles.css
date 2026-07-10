@@ -143,7 +143,24 @@ a { color: inherit; }
   position: relative;
   overflow: hidden;
 }
-.hero-inner { max-width: 860px; }
+.hero-inner {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-photo-large {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--mauve-border-strong);
+}
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-photo-large { max-width: 280px; }
+}
 .hero-avatar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .hero-avatar-wrap {
   width: 56px; height: 56px;
