@@ -626,7 +626,7 @@ section { padding: 5rem 2.5rem; }
 #connect {
   background: var(--mauve);
   color: var(--ink);
-  padding: 5rem 2.5rem;
+  padding: 3rem 2.5rem 5rem;
 }
 .connect-inner {
   display: grid;
