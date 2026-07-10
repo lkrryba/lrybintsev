@@ -2,26 +2,29 @@
    CV Reviews page styles — applied on top of styles.css + blog.css
    ========================================================================= */
 
-/* ---------- WHY ME (photo + credential cards) ---------- */
-.whyme-layout {
+/* ---------- WHY ME (photo tile + credential cards, 2x2) ---------- */
+.whyme-grid {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 2.5rem;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1000px;
 }
 .whyme-photo {
   width: 100%;
-  height: auto;
-  border-radius: 4px;
-  border: 3px solid var(--violet);
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 2px;
+  border: 1px solid var(--paper-border);
   display: block;
 }
-.whyme-layout .bg-grid { grid-template-columns: 1fr 1fr; }
 
-@media (max-width: 900px) {
-  .whyme-layout { grid-template-columns: 1fr; }
-  .whyme-photo { max-width: 280px; }
-  .whyme-layout .bg-grid { grid-template-columns: 1fr; }
+@media (max-width: 700px) {
+  .whyme-grid { grid-template-columns: 1fr; }
+  .whyme-photo {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
 }
 
 /* ---------- HOW IT WORKS ---------- */
