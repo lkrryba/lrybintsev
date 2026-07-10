@@ -688,6 +688,9 @@ section { padding: 5rem 2.5rem; }
 .connect-photo {
   width: 100%;
   max-width: 380px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 55%;
   display: block;
   margin-top: 2rem;
   border-radius: 6px;
