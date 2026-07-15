@@ -39,7 +39,7 @@
 }
 .post-title em { font-style: italic; color: var(--clay-deep); }
 .post-subtitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--text-soft);
   max-width: 580px;
   line-height: 1.7;
@@ -76,7 +76,7 @@
 }
 .post-content p {
   margin-bottom: 1.4rem;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.8;
 }
 .post-content h2 {
@@ -119,7 +119,7 @@
 }
 .tip--clay .tip-label { color: var(--clay-deep); }
 .tip-text {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.65;
 }
 

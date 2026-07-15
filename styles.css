@@ -194,7 +194,7 @@ a { color: inherit; }
 }
 .hero-headline em { font-style: italic; color: var(--clay-deep); }
 .hero-bio {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-soft);
   max-width: 580px;
   line-height: 1.75;
@@ -334,7 +334,7 @@ section { padding: 5rem 2.5rem; }
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   line-height: 1.65;
 }
@@ -383,7 +383,7 @@ section { padding: 5rem 2.5rem; }
   margin-bottom: 0.5rem;
 }
 .project-desc {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -417,7 +417,7 @@ section { padding: 5rem 2.5rem; }
   line-height: 1.2;
 }
 .bg-card-desc {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -464,7 +464,7 @@ section { padding: 5rem 2.5rem; }
   margin-bottom: 0.5rem;
 }
 .wr-card-title {
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text);
   line-height: 1.4;
@@ -612,7 +612,7 @@ section { padding: 5rem 2.5rem; }
 }
 .beyond-label--clay { color: var(--clay-deep); }
 .beyond-text {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-soft);
   line-height: 1.6;
 }
@@ -662,7 +662,7 @@ section { padding: 5rem 2.5rem; }
   margin-bottom: 1rem;
 }
 .connect-text {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--text-soft);
   line-height: 1.7;
   margin-bottom: 1.5rem;
@@ -867,7 +867,7 @@ section { padding: 5rem 2.5rem; }
 
 /* ---------- SHORTS SHELF ---------- */
 .shorts-blurb {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   line-height: 1.6;
   margin: 0.6rem 0 1rem;
