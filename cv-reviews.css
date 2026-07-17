@@ -151,7 +151,7 @@
 }
 .btn-buy:hover { background: var(--violet-light); }
 .btn-buy--clay { background: var(--clay-deep); }
-.btn-buy--clay:hover { background: #8A4A27; }
+.btn-buy--clay:hover { background: #47203B; }
 
 /* Founding-rate block inside the Standard card */
 .founding-offer {

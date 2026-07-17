@@ -25,8 +25,8 @@
   --violet: #6F5FB0;
   --violet-light: #8B7CC7;
   --violet-deep: #4B3F7A;   /* AA-contrast violet for small text */
-  --clay: #C97F55;          /* decorative only: borders, large accents */
-  --clay-deep: #9E5730;     /* AA-contrast clay for small text */
+  --clay: #7A3A66;          /* decorative only: borders, large accents */
+  --clay-deep: #5C2A4D;     /* AA-contrast plum for small text */
 
   --ink: #26222E;
   --text: #26222E;
@@ -807,7 +807,7 @@ section { padding: 5rem 2.5rem; }
   color: var(--ink);
 }
 .newsletter-form .formkit-alert-error {
-  background: rgba(158, 87, 48, 0.12);
+  background: rgba(92, 42, 77, 0.12);
   border: 1px solid var(--clay-deep);
   color: var(--clay-deep);
 }
