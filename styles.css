@@ -691,6 +691,7 @@ section { padding: 5rem 2.5rem; }
   font-weight: 500;
   text-decoration: none;
   transition: background 0.2s;
+  white-space: nowrap;
 }
 .btn-email:hover { background: var(--violet); color: #FFFFFF; }
 .connect-social {
