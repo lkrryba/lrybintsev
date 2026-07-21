@@ -1453,3 +1453,7 @@ section { padding: 5rem 2.5rem; }
   font-weight: 700;
   font-size: 1.2rem;
 }
+
+/* Subscribe CTA at the bottom of the Written section */
+.written-subscribe { margin-top: 2.5rem; text-align: center; }
+.written-subscribe .newsletter-substack-link { display: inline-block; }
