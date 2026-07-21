@@ -773,8 +773,9 @@ section { padding: 5rem 2.5rem; }
   text-decoration: none;
   text-align: center;
   background: var(--clay-deep);
+  color: #FFFFFF;
 }
-.newsletter-substack-link:hover { background: var(--clay); }
+.newsletter-substack-link:hover { background: var(--violet); color: #FFFFFF; }
 .newsletter-submit > span { display: block; }
 /* spinner (hidden by default, shown when active) */
 .formkit-spinner {
@@ -850,7 +851,7 @@ section { padding: 5rem 2.5rem; }
   padding: 0.4rem 0.75rem;
   transition: background 0.2s;
 }
-.footer-btn:hover { background: var(--mauve-hover); }
+.footer-btn:hover { background: var(--mauve-hover); color: #FFFFFF; }
 .site-footer p {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -953,7 +954,7 @@ section { padding: 5rem 2.5rem; }
   font-size: 0.55rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #0A100D;
+  color: #FFFFFF;
   background: var(--clay-deep);
   padding: 0.15rem 0.4rem;
   border-radius: 2px;
@@ -988,6 +989,9 @@ section { padding: 5rem 2.5rem; }
 .beyond-icon { color: var(--violet); }
 .beyond-icon--clay { color: var(--clay-deep); }
 .beyond-item:hover .beyond-icon { color: #0A100D; }
+.beyond-item:hover .beyond-label,
+.beyond-item:hover .beyond-text,
+.beyond-item:hover .beyond-text a { color: #FFFFFF; }
 .beyond-icon .icon { width: 1.6rem; height: 1.6rem; stroke-width: 1.75; }
 
 /* =========================================================================
