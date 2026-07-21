@@ -1030,3 +1030,404 @@ section { padding: 5rem 2.5rem; }
   }
   .hero-inner > * { opacity: 1; }
 }
+
+
+/* =========================================================================
+   Merged from blog.css (post-page + shared blog styles)
+   ========================================================================= */
+
+/* =========================================================================
+   Blog post styles — applied on top of ../styles.css
+   ========================================================================= */
+
+/* Back-link in the nav (post pages only) */
+.nav-back {
+  font-size: 0.75rem;
+  color: var(--violet-deep);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--ink); }
+
+/* HERO */
+.post-hero {
+  padding: 8rem 2.5rem 4rem;
+  background: var(--mauve);
+}
+.post-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet-deep);
+  margin-bottom: 1rem;
+}
+.post-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 780px;
+  margin-bottom: 1.5rem;
+}
+.post-title em { font-style: italic; color: var(--clay-deep); }
+.post-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-soft);
+  max-width: 580px;
+  line-height: 1.7;
+}
+
+/* HERO IMAGE */
+.post-image-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  transform: translateY(-2rem);
+}
+.post-image-wrap img {
+  width: 100%;
+  border-radius: 3px;
+  display: block;
+  border: 3px solid var(--clay);
+}
+.post-image-caption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+/* BODY */
+.post-content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 6rem;
+}
+.post-content p {
+  margin-bottom: 1.4rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+.post-content h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 2.5rem 0 1rem;
+  line-height: 1.2;
+}
+.post-content blockquote {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--violet);
+  border-left: 3px solid var(--violet);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  margin: 2rem 0;
+  line-height: 1.3;
+}
+
+/* TIP CALLOUTS */
+.tip {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--mauve);
+  border-left: 3px solid var(--violet);
+  border-radius: 0 3px 3px 0;
+}
+.tip--clay { border-left-color: var(--clay); }
+.tip-emoji { font-size: 1.3rem; flex-shrink: 0; padding-top: 0.1rem; }
+.tip-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--violet-deep);
+  margin-bottom: 0.3rem;
+}
+.tip--clay .tip-label { color: var(--clay-deep); }
+.tip-text {
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 600px) {
+  .post-hero        { padding: 7rem 1.25rem 3rem; }
+  .post-image-wrap  { padding: 0 1.25rem; }
+  .post-content     { padding: 0 1.25rem 4rem; }
+}
+
+
+/* =========================================================================
+   Merged from cv-reviews.css (CV Reviews page styles)
+   ========================================================================= */
+
+/* =========================================================================
+   CV Reviews page styles — applied on top of styles.css + blog.css
+   ========================================================================= */
+
+/* ---------- HERO (text left, photo right) ---------- */
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1100px;
+}
+.hero-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  border: 1px solid var(--mauve-border-strong);
+}
+
+@media (max-width: 800px) {
+  .hero-split { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-photo { max-width: 240px; }
+}
+
+/* ---------- HOW IT WORKS ---------- */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  counter-reset: step;
+}
+.step-card {
+  border: 1px solid var(--paper-border);
+  padding: 1.5rem;
+  border-radius: 2px;
+  background: var(--paper);
+  position: relative;
+}
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clay-deep);
+  margin-bottom: 0.5rem;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.step-icon { margin-right: 0.45em; }
+.step-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ---------- AI OBJECTION ---------- */
+.objection-text { max-width: 680px; }
+.objection-text p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 1.3rem;
+}
+.objection-pull {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--clay-deep);
+  margin-top: 1.8rem;
+}
+
+/* ---------- PRICING ---------- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.price-card {
+  background: var(--paper);
+  border: 1px solid var(--paper-border);
+  border-radius: 2px;
+  padding: 1.8rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+}
+.price-card--rush { border-color: var(--clay); }
+.price-tier {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet-deep);
+  margin-bottom: 0.6rem;
+}
+.price-card--rush .price-tier { color: var(--clay-deep); }
+.price-amount {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+.price-turnaround {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.1rem;
+}
+.price-features {
+  list-style: none;
+  margin-bottom: 1.4rem;
+  flex-grow: 1;
+}
+.price-features li {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding-left: 1.1rem;
+  position: relative;
+  margin-bottom: 0.45rem;
+}
+.price-features li::before {
+  content: "\2192";
+  position: absolute;
+  left: 0;
+  color: var(--violet-deep);
+}
+.price-card--rush .price-features li::before { color: var(--clay-deep); }
+.btn-buy {
+  display: block;
+  text-align: center;
+  background: var(--violet);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-buy:hover { background: var(--violet-light); }
+.btn-buy--clay { background: var(--clay-deep); }
+.btn-buy--clay:hover { background: #47203B; }
+
+/* Founding-rate block inside the Standard card */
+.founding-offer {
+  border: 1px dashed var(--clay-deep);
+  border-radius: 3px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.4rem;
+  background: var(--mauve);
+}
+.founding-offer-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clay-deep);
+  margin-bottom: 0.35rem;
+}
+.founding-offer-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+.founding-offer .btn-buy {
+  font-size: 0.82rem;
+  padding: 0.5rem 1rem;
+}
+
+.pricing-smallprint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 1.5rem;
+}
+.pricing-smallprint a {
+  color: var(--violet-deep);
+  text-underline-offset: 3px;
+}
+
+/* ---------- FAQ ---------- */
+.faq-list { max-width: 720px; }
+.faq-item {
+  border-bottom: 1px solid var(--paper-divider);
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 2rem 1rem 0;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--text);
+  position: relative;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--violet-deep);
+  font-family: var(--font-mono);
+  transition: transform 0.2s;
+}
+.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq-answer {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  padding: 0 0 1.2rem;
+  max-width: 620px;
+}
+
+/* ---------- BOTTOM CTA ---------- */
+.cv-cta {
+  background: var(--mauve);
+  padding: 5rem 2.5rem;
+}
+.cv-cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.cv-cta-heading em { font-style: italic; color: var(--clay-deep); }
+.cv-cta-text {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .cv-cta { padding: 3.5rem 1.25rem; }
+}

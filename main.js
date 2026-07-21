@@ -62,87 +62,163 @@
     });
   }
 
-  // "Things I've Written" carousel: show one page of cards at a time.
-  // Page size tracks the grid's column count (3 / 2 / 1 across breakpoints),
-  // so mobile shows one card per page. Works on however many cards
-  // build-written.js generated; degrades to "show all" without JS.
-  const wrGrid = document.querySelector('.wr-grid');
-  const wrControls = document.querySelector('.wr-carousel-controls');
-  if (wrGrid && wrControls) {
+  // "Things I've Written" — live Substack feed + carousel.
+  //
+  // Posts are pulled from the Substack RSS feed when the page loads (same
+  // pattern as the shorts shelf above). Browsers can't read the feed
+  // cross-origin directly, so it goes through a free RSS-to-JSON relay.
+  //  - Feed has posts  -> the placeholder local "Blog" cards are removed and
+  //                       the live Substack posts are shown ahead of the
+  //                       external (Medium / freeCodeCamp) cards.
+  //  - Feed empty or relay unreachable -> whatever is baked into index.html
+  //                       stays put, so the section never ends up blank.
+  // The carousel then runs over whatever cards ended up in the grid.
+  const SUBSTACK_FEED = 'https://leanne14.substack.com/feed';
+  const SUBSTACK_LIMIT = 9;
+
+  // Carousel: show one page of cards at a time. Page size tracks the grid's
+  // column count (3 / 2 / 1 across breakpoints). Degrades to "show all"
+  // without JS. Called once, after the feed load settles.
+  const initWrittenCarousel = () => {
+    const wrGrid = document.querySelector('.wr-grid');
+    const wrControls = document.querySelector('.wr-carousel-controls');
+    if (!wrGrid || !wrControls) return;
+
     const cards = Array.from(wrGrid.querySelectorAll('.wr-card'));
     const dotsWrap = wrControls.querySelector('.wr-dots');
     const prevBtn = wrControls.querySelector('.wr-carousel-prev');
     const nextBtn = wrControls.querySelector('.wr-carousel-next');
+    if (!(cards.length && dotsWrap && prevBtn && nextBtn)) return;
 
-    if (cards.length && dotsWrap && prevBtn && nextBtn) {
-      let page = 0;
+    let page = 0;
 
-      const pageSize = () => {
-        if (window.matchMedia('(min-width: 901px)').matches) return 3;
-        if (window.matchMedia('(min-width: 601px)').matches) return 2;
-        return 1;
-      };
+    const pageSize = () => {
+      if (window.matchMedia('(min-width: 901px)').matches) return 3;
+      if (window.matchMedia('(min-width: 601px)').matches) return 2;
+      return 1;
+    };
 
-      const render = () => {
-        const size = pageSize();
-        const pageCount = Math.ceil(cards.length / size);
+    const render = () => {
+      const size = pageSize();
+      const pageCount = Math.ceil(cards.length / size);
 
-        if (pageCount <= 1) {
-          cards.forEach((c) => c.removeAttribute('hidden'));
-          wrControls.setAttribute('hidden', '');
-          return;
+      if (pageCount <= 1) {
+        cards.forEach((c) => c.removeAttribute('hidden'));
+        wrControls.setAttribute('hidden', '');
+        return;
+      }
+
+      page = Math.max(0, Math.min(page, pageCount - 1));
+      wrControls.removeAttribute('hidden');
+
+      const start = page * size;
+      cards.forEach((c, i) => {
+        if (i >= start && i < start + size) c.removeAttribute('hidden');
+        else c.setAttribute('hidden', '');
+      });
+
+      // Rebuild dots if the count changed (e.g. on resize across breakpoints).
+      if (dotsWrap.children.length !== pageCount) {
+        dotsWrap.innerHTML = '';
+        for (let i = 0; i < pageCount; i++) {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'wr-dot';
+          dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+          dot.addEventListener('click', () => {
+            page = i;
+            render();
+          });
+          dotsWrap.appendChild(dot);
         }
-
-        page = Math.max(0, Math.min(page, pageCount - 1));
-        wrControls.removeAttribute('hidden');
-
-        const start = page * size;
-        cards.forEach((c, i) => {
-          if (i >= start && i < start + size) c.removeAttribute('hidden');
-          else c.setAttribute('hidden', '');
-        });
-
-        // Rebuild dots if the count changed (e.g. on resize across breakpoints).
-        if (dotsWrap.children.length !== pageCount) {
-          dotsWrap.innerHTML = '';
-          for (let i = 0; i < pageCount; i++) {
-            const dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'wr-dot';
-            dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-            dot.addEventListener('click', () => {
-              page = i;
-              render();
-            });
-            dotsWrap.appendChild(dot);
-          }
-        }
-        Array.from(dotsWrap.children).forEach((dot, i) => {
-          dot.setAttribute('aria-current', i === page ? 'true' : 'false');
-        });
-      };
-
-      // Arrows wrap around: next from the last page loops to the first.
-      prevBtn.addEventListener('click', () => {
-        const pageCount = Math.ceil(cards.length / pageSize());
-        page = (page - 1 + pageCount) % pageCount;
-        render();
+      }
+      Array.from(dotsWrap.children).forEach((dot, i) => {
+        dot.setAttribute('aria-current', i === page ? 'true' : 'false');
       });
-      nextBtn.addEventListener('click', () => {
-        const pageCount = Math.ceil(cards.length / pageSize());
-        page = (page + 1) % pageCount;
-        render();
-      });
+    };
 
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(render, 100);
-      });
-
+    // Arrows wrap around: next from the last page loops to the first.
+    prevBtn.addEventListener('click', () => {
+      const pageCount = Math.ceil(cards.length / pageSize());
+      page = (page - 1 + pageCount) % pageCount;
       render();
+    });
+    nextBtn.addEventListener('click', () => {
+      const pageCount = Math.ceil(cards.length / pageSize());
+      page = (page + 1) % pageCount;
+      render();
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(render, 100);
+    });
+
+    render();
+  };
+
+  // Build one card in the site's existing markup. textContent (not innerHTML)
+  // so a post title from the feed can never inject markup.
+  const substackCard = (title, href) => {
+    const article = document.createElement('article');
+    article.className = 'wr-card';
+
+    const type = document.createElement('div');
+    type.className = 'wr-card-type';
+    type.textContent = 'Substack';
+
+    const heading = document.createElement('div');
+    heading.className = 'wr-card-title';
+    heading.textContent = title;
+
+    const link = document.createElement('a');
+    link.className = 'wr-card-link';
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Read ↗';
+
+    article.append(type, heading, link);
+    return article;
+  };
+
+  const loadSubstackFeed = async () => {
+    const wrGrid = document.querySelector('.wr-grid');
+    if (!wrGrid) return;
+
+    try {
+      const endpoint =
+        'https://api.rss2json.com/v1/api.json?rss_url=' +
+        encodeURIComponent(SUBSTACK_FEED);
+      const res = await fetch(endpoint);
+      if (!res.ok) throw new Error(`relay ${res.status}`);
+      const data = await res.json();
+      const items =
+        data && data.status === 'ok' && Array.isArray(data.items) ? data.items : [];
+      if (!items.length) return; // empty feed: keep the baked cards as-is
+
+      // Drop the placeholder local "Blog" cards (the ones being retired), keep
+      // the external cards, and slot the live Substack posts in at the front.
+      wrGrid.querySelectorAll('.wr-card').forEach((card) => {
+        const kind = card.querySelector('.wr-card-type');
+        if (kind && kind.textContent.trim() === 'Blog') card.remove();
+      });
+
+      const frag = document.createDocumentFragment();
+      items.slice(0, SUBSTACK_LIMIT).forEach((it) => {
+        if (it && it.title && it.link) frag.appendChild(substackCard(it.title, it.link));
+      });
+
+      const firstRemaining = wrGrid.querySelector('.wr-card');
+      if (firstRemaining) wrGrid.insertBefore(frag, firstRemaining);
+      else wrGrid.appendChild(frag);
+    } catch (e) {
+      // Relay down or bad response: leave the baked cards as the fallback.
     }
-  }
+  };
+
+  loadSubstackFeed().then(initWrittenCarousel);
 
   // ---------------------------------------------------------------------
   // YouTube Shorts shelf
