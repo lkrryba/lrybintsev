@@ -772,13 +772,18 @@ section { padding: 5rem 2.5rem; }
 .newsletter-submit:hover { background: var(--violet); color: #FFFFFF; }
 .newsletter-substack-link {
   grid-column: 1 / -1;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
   text-decoration: none;
   text-align: center;
   background: var(--clay-deep);
   color: #FFFFFF;
 }
 .newsletter-substack-link:hover { background: var(--violet); color: #FFFFFF; }
+/* Open-book glyph is optically top-heavy; nudge it down to sit centred with the text */
+.newsletter-substack-link .icon { transform: translateY(0.1em); }
 .newsletter-submit > span { display: block; }
 /* spinner (hidden by default, shown when active) */
 .formkit-spinner {
@@ -1457,4 +1462,20 @@ section { padding: 5rem 2.5rem; }
 
 /* Subscribe CTA at the bottom of the Written section */
 .written-subscribe { margin-top: 2.5rem; text-align: center; }
-.written-subscribe .newsletter-substack-link { display: inline-block; }
+.written-subscribe .newsletter-substack-link { display: inline-flex; }
+
+/* Substack CTA in the "Ready when you are" section */
+.cv-cta-substack { margin-top: 2.25rem; }
+/* Email + Subscribe buttons share one width (full-width on mobile, capped on desktop) */
+.cv-cta .btn-email,
+.cv-cta .newsletter-substack-link {
+  width: 100%;
+  max-width: 24rem;
+}
+.cv-cta .btn-email {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  text-align: center;
+}
