@@ -62,16 +62,16 @@
     });
   }
 
-  // "Things I've Written" — live Substack feed + carousel.
+  // "Things I've Written" — Substack posts + carousel.
   //
-  // Posts are pulled from the Substack RSS feed when the page loads (same
-  // pattern as the shorts shelf above). Browsers can't read the feed
-  // cross-origin directly, so it goes through a free RSS-to-JSON relay.
-  //  - Feed has posts  -> the placeholder local "Blog" cards are removed and
-  //                       the live Substack posts are shown ahead of the
-  //                       external (Medium / freeCodeCamp) cards.
-  //  - Feed empty or relay unreachable -> whatever is baked into index.html
-  //                       stays put, so the section never ends up blank.
+  // Substack cards are baked into index.html at build time by build-written.js
+  // (Node reads the feed directly, so those are the reliable baseline). This
+  // code is a best-effort *live refresh* on top: browsers can't read the feed
+  // cross-origin, so it goes through public RSS relays, which are flaky.
+  //  - A relay returns posts -> the baked Substack cards are swapped out for the
+  //                             fresh ones, ahead of the external cards.
+  //  - Every relay fails     -> the baked Substack cards stay put, so the
+  //                             section is never blank.
   // The carousel then runs over whatever cards ended up in the grid.
   const SUBSTACK_FEED = 'https://leanne14.substack.com/feed';
   const SUBSTACK_LIMIT = 9;
@@ -183,39 +183,77 @@
     return article;
   };
 
+  // Ask a relay for the feed and normalise to [{ title, link }]. Two relays are
+  // tried in order because any single free relay is unreliable with Substack:
+  //   1. rss2json — returns parsed JSON directly.
+  //   2. allorigins — returns the raw RSS XML, parsed here with DOMParser.
+  // Returns [] if a relay is reachable but empty; throws only if it fails.
+  const fetchViaRss2json = async () => {
+    const endpoint =
+      'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(SUBSTACK_FEED);
+    const res = await fetch(endpoint);
+    if (!res.ok) throw new Error(`rss2json ${res.status}`);
+    const data = await res.json();
+    if (!data || data.status !== 'ok' || !Array.isArray(data.items)) {
+      throw new Error('rss2json bad payload');
+    }
+    return data.items
+      .filter((it) => it && it.title && it.link)
+      .map((it) => ({ title: it.title, link: it.link }));
+  };
+
+  const fetchViaAllOrigins = async () => {
+    const endpoint =
+      'https://api.allorigins.win/raw?url=' + encodeURIComponent(SUBSTACK_FEED);
+    const res = await fetch(endpoint);
+    if (!res.ok) throw new Error(`allorigins ${res.status}`);
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, 'application/xml');
+    if (doc.querySelector('parsererror')) throw new Error('allorigins parse error');
+    return Array.from(doc.querySelectorAll('item'))
+      .map((item) => ({
+        title: (item.querySelector('title')?.textContent || '').trim(),
+        link: (item.querySelector('link')?.textContent || '').trim(),
+      }))
+      .filter((it) => it.title && it.link);
+  };
+
+  const fetchSubstackItems = async () => {
+    for (const source of [fetchViaRss2json, fetchViaAllOrigins]) {
+      try {
+        const items = await source();
+        if (items.length) return items;
+      } catch (e) {
+        // Try the next relay.
+      }
+    }
+    return null; // every relay failed or was empty
+  };
+
   const loadSubstackFeed = async () => {
     const wrGrid = document.querySelector('.wr-grid');
     if (!wrGrid) return;
 
-    try {
-      const endpoint =
-        'https://api.rss2json.com/v1/api.json?rss_url=' +
-        encodeURIComponent(SUBSTACK_FEED);
-      const res = await fetch(endpoint);
-      if (!res.ok) throw new Error(`relay ${res.status}`);
-      const data = await res.json();
-      const items =
-        data && data.status === 'ok' && Array.isArray(data.items) ? data.items : [];
-      if (!items.length) return; // empty feed: keep the baked cards as-is
+    const items = await fetchSubstackItems();
+    if (!items) return; // all relays failed: keep the build-time cards as-is
 
-      // Drop the placeholder local "Blog" cards (the ones being retired), keep
-      // the external cards, and slot the live Substack posts in at the front.
-      wrGrid.querySelectorAll('.wr-card').forEach((card) => {
-        const kind = card.querySelector('.wr-card-type');
-        if (kind && kind.textContent.trim() === 'Blog') card.remove();
-      });
+    // Swap out the build-time Substack cards (and any retired local "Blog"
+    // cards) for the fresh ones; keep the external cards. Slot the live posts
+    // in at the front.
+    wrGrid.querySelectorAll('.wr-card').forEach((card) => {
+      const kind = card.querySelector('.wr-card-type');
+      const label = kind && kind.textContent.trim();
+      if (label === 'Substack' || label === 'Blog') card.remove();
+    });
 
-      const frag = document.createDocumentFragment();
-      items.slice(0, SUBSTACK_LIMIT).forEach((it) => {
-        if (it && it.title && it.link) frag.appendChild(substackCard(it.title, it.link));
-      });
+    const frag = document.createDocumentFragment();
+    items.slice(0, SUBSTACK_LIMIT).forEach((it) => {
+      frag.appendChild(substackCard(it.title, it.link));
+    });
 
-      const firstRemaining = wrGrid.querySelector('.wr-card');
-      if (firstRemaining) wrGrid.insertBefore(frag, firstRemaining);
-      else wrGrid.appendChild(frag);
-    } catch (e) {
-      // Relay down or bad response: leave the baked cards as the fallback.
-    }
+    const firstRemaining = wrGrid.querySelector('.wr-card');
+    if (firstRemaining) wrGrid.insertBefore(frag, firstRemaining);
+    else wrGrid.appendChild(frag);
   };
 
   loadSubstackFeed().then(initWrittenCarousel);

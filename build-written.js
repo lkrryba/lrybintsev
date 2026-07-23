@@ -18,6 +18,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 
 const DIR = __dirname;
 const INDEX = path.join(DIR, 'index.html');
@@ -26,6 +27,12 @@ const END = '<!-- WRITTEN:END -->';
 
 // Files that are NOT blog posts even if they look like one.
 const IGNORE = new Set(['index.html', 'cv-reviews.html']);
+
+// Substack feed baked in at build time. Node reads it directly (no CORS, no
+// third-party relay), so these cards are the reliable baseline; main.js may
+// still refresh them live in the browser. Bump the limit to taste.
+const SUBSTACK_FEED = 'https://leanne14.substack.com/feed';
+const SUBSTACK_LIMIT = 9;
 
 // External articles, in display order (shown after local posts).
 const EXTERNAL_POSTS = [
@@ -89,6 +96,82 @@ function discoverLocalPosts() {
     .sort((a, b) => b.mtime - a.mtime); // newest first
 }
 
+// Fetch a URL over https, following redirects, returning the body as a string.
+// Resolves to null on any network error / non-200 so the build never blocks on
+// the feed being reachable.
+function fetchText(url, redirectsLeft = 3) {
+  return new Promise((resolve) => {
+    const req = https.get(
+      url,
+      {
+        headers: {
+          // Substack serves the feed to normal clients but blocks some bots.
+          'User-Agent': 'Mozilla/5.0 (compatible; lrybintsev-site build script)',
+          Accept: 'application/rss+xml, application/xml, text/xml, */*',
+        },
+        timeout: 15000,
+      },
+      (res) => {
+        const { statusCode, headers } = res;
+        if (statusCode >= 300 && statusCode < 400 && headers.location && redirectsLeft > 0) {
+          res.resume(); // drain
+          const next = new URL(headers.location, url).toString();
+          resolve(fetchText(next, redirectsLeft - 1));
+          return;
+        }
+        if (statusCode !== 200) {
+          res.resume();
+          resolve(null);
+          return;
+        }
+        let body = '';
+        res.setEncoding('utf8');
+        res.on('data', (chunk) => (body += chunk));
+        res.on('end', () => resolve(body));
+      }
+    );
+    req.on('timeout', () => req.destroy());
+    req.on('error', () => resolve(null));
+  });
+}
+
+// Pull the text of the first <tag>…</tag> out of an RSS <item> block, unwrapping
+// a CDATA section if present.
+function tagText(itemXml, tag) {
+  const m = itemXml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i'));
+  if (!m) return null;
+  let v = m[1].trim();
+  const cdata = v.match(/^<!\[CDATA\[([\s\S]*?)\]\]>$/);
+  if (cdata) v = cdata[1].trim();
+  return v;
+}
+
+// Parse the Substack RSS feed into {title, href} entries (newest first, as the
+// feed already orders them).
+function parseFeedItems(xml) {
+  if (!xml) return [];
+  const items = [];
+  const itemRe = /<item\b[\s\S]*?<\/item>/gi;
+  let match;
+  while ((match = itemRe.exec(xml))) {
+    const block = match[0];
+    const title = tagText(block, 'title');
+    const link = tagText(block, 'link');
+    if (title && link) items.push({ title: decodeEntities(title), href: link });
+  }
+  return items;
+}
+
+async function discoverSubstackPosts() {
+  const xml = await fetchText(SUBSTACK_FEED);
+  if (!xml) {
+    console.warn('  ! Substack feed unreachable — skipping Substack cards this build');
+    return [];
+  }
+  const items = parseFeedItems(xml).slice(0, SUBSTACK_LIMIT);
+  return items.map((it) => ({ type: 'Substack', title: it.title, href: it.href }));
+}
+
 function localCard(p) {
   return [
     '        <article class="wr-card">',
@@ -109,9 +192,14 @@ function externalCard(p) {
   ].join('\n');
 }
 
-function main() {
+async function main() {
+  const substack = await discoverSubstackPosts();
   const local = discoverLocalPosts();
-  const cards = [...local.map(localCard), ...EXTERNAL_POSTS.map(externalCard)].join('\n');
+  const cards = [
+    ...substack.map(externalCard),
+    ...local.map(localCard),
+    ...EXTERNAL_POSTS.map(externalCard),
+  ].join('\n');
 
   let html = fs.readFileSync(INDEX, 'utf8');
   const startIdx = html.indexOf(START);
@@ -127,8 +215,14 @@ function main() {
   html = `${before}${cards}\n        ${after}`;
 
   fs.writeFileSync(INDEX, html);
-  console.log(`Wrote ${local.length} local + ${EXTERNAL_POSTS.length} external post(s) to the Written section.`);
+  console.log(
+    `Wrote ${substack.length} Substack + ${local.length} local + ${EXTERNAL_POSTS.length} external post(s) to the Written section.`
+  );
+  substack.forEach((p) => console.log(`  • [Substack] ${p.title}`));
   local.forEach((p) => console.log(`  • ${p.href} — ${p.title}`));
 }
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
