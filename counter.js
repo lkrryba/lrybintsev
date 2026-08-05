@@ -8,23 +8,23 @@
  * cookie-free, and doesn't collect personal data, so it needs no consent
  * banner.
  *
- * SETUP (one-off, ~2 minutes):
- *   1. Sign up at https://www.goatcounter.com — pick a site code, e.g. "lrybintsev".
- *   2. In Settings, tick "Allow adding visitor counts to your website".
- *      Without this the endpoint below returns 403 and the counter stays hidden.
- *   3. Put your code in SITE_CODE below.
- *   4. In index.html and cv-reviews.html, swap YOUR-CODE in the gc.zgo.at
- *      script tag for the same code. That tag is what records the visits;
- *      this file only displays the total.
+ * The account is lrybintsev.goatcounter.com. The gc.zgo.at script tag at the
+ * bottom of each page records the visits; this file only reads the total back
+ * out and displays it.
  *
- * Until SITE_CODE is filled in, the counter hides itself rather than showing a
- * broken or made-up number.
+ * One setting this depends on: "Allow adding visitor counts on your website"
+ * must be ticked in the GoatCounter site settings. It defaults to off, and
+ * while it's off the endpoint below returns 403 and the counter stays hidden.
  */
 (function () {
-  var SITE_CODE = 'YOUR-CODE';
+  var SITE_CODE = 'lrybintsev';
+
+  // Don't show the counter until it's a number worth showing. Below this the
+  // footer just omits it. Lower or raise it whenever you like.
+  var MIN_VISITS = 1000;
 
   var el = document.querySelector('[data-visit-count]');
-  if (!el || SITE_CODE === 'YOUR-CODE') return;
+  if (!el) return;
 
   // "TOTAL" is GoatCounter's magic path for the whole site rather than one page.
   var url = 'https://' + SITE_CODE + '.goatcounter.com/counter/TOTAL.json';
@@ -35,9 +35,15 @@
       return res.json();
     })
     .then(function (data) {
-      // GoatCounter returns the count pre-formatted with thousands separators.
+      // GoatCounter returns the count pre-formatted with thousands separators,
+      // as a string: "0", "1,234". Note "0" is truthy, so it has to be parsed
+      // rather than just checked for emptiness.
       var count = data && data.count;
       if (!count) return;
+
+      var n = parseInt(String(count).replace(/[^0-9]/g, ''), 10);
+      if (!n || n < MIN_VISITS) return;
+
       el.querySelector('[data-visit-count-value]').textContent = count;
       el.hidden = false;
     })

@@ -873,6 +873,17 @@ section { padding: 5rem 2.5rem; }
   letter-spacing: 0.06em;
 }
 
+/* Footer visit counter. Populated by counter.js; stays hidden if the count
+   can't be fetched, so the footer never shows a placeholder or a zero. */
+.visit-count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--violet-deep);
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.visit-count[hidden] { display: none; }
+
 /* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
