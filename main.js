@@ -166,7 +166,7 @@
 
     const type = document.createElement('div');
     type.className = 'wr-card-type';
-    type.textContent = 'Substack';
+    type.textContent = 'Essay';
 
     const heading = document.createElement('div');
     heading.className = 'wr-card-title';
@@ -243,7 +243,7 @@
     wrGrid.querySelectorAll('.wr-card').forEach((card) => {
       const kind = card.querySelector('.wr-card-type');
       const label = kind && kind.textContent.trim();
-      if (label === 'Substack' || label === 'Blog') card.remove();
+      if (label === 'Essay' || label === 'Substack' || label === 'Blog') card.remove();
     });
 
     const frag = document.createDocumentFragment();

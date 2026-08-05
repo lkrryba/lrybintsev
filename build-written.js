@@ -169,7 +169,9 @@ async function discoverSubstackPosts() {
     return [];
   }
   const items = parseFeedItems(xml).slice(0, SUBSTACK_LIMIT);
-  return items.map((it) => ({ type: 'Substack', title: it.title, href: it.href }));
+  // Labelled "Essay" rather than "Substack": the archive still lives there, but
+  // the newsletter itself has moved to Kit, so the brand isn't surfaced.
+  return items.map((it) => ({ type: 'Essay', title: it.title, href: it.href }));
 }
 
 function localCard(p) {
