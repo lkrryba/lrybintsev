@@ -29,15 +29,19 @@
   --clay-deep: #FB399A;         /* display italic accent words -> pink */
 
   --ink: #0A100D;
-  --text: #0A100D;
-  --text-soft: #0A100D;
-  --text-muted: #0A100D;
+  --text: #0A100D;              /* primary copy */
+  --text-soft: #2E3630;         /* lead paragraphs: a step off black */
+  --text-muted: #4F5952;        /* supporting copy — 7.3:1 on white, 5.6:1 on lime */
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-body: "Outfit", system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
 
   --nav-height: 56px;
+
+  /* One content width for the whole site. Sections keep full-bleed
+     backgrounds; only their contents are constrained. */
+  --container: 1140px;
 }
 
 html { scroll-behavior: smooth; }
@@ -59,7 +63,7 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2.5rem;
+  padding: 0 max(2.5rem, calc((100% - var(--container)) / 2));
   height: var(--nav-height);
   background: var(--paper);
   border-bottom: 1px solid var(--mauve-border);
@@ -105,7 +109,7 @@ a { color: inherit; }
 /* ---------- SECTION HEADINGS (shared) ---------- */
 .section-tag {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -115,7 +119,7 @@ a { color: inherit; }
 #connect .section-tag { color: var(--violet-deep); }
 .section-heading {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem);
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 2.5rem;
@@ -141,7 +145,7 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8rem 2.5rem 3rem;
+  padding: 8rem max(2.5rem, calc((100% - var(--container)) / 2)) 3rem;
   position: relative;
   overflow: hidden;
 }
@@ -253,7 +257,7 @@ a { color: inherit; }
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   border-top: 1px solid var(--mauve-border);
-  padding: 2rem 2.5rem 0;
+  padding: 2rem 0 0;
   margin-top: 3rem;
 }
 .stat-number {
@@ -265,7 +269,7 @@ a { color: inherit; }
   margin-bottom: 0.3rem;
 }
 .stat-label {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-family: var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -273,7 +277,7 @@ a { color: inherit; }
 }
 
 /* SECTIONS */
-section { padding: 5rem 2.5rem; }
+section { padding: 5rem max(2.5rem, calc((100% - var(--container)) / 2)); }
 #section-work       { background: var(--paper); }
 #background         { background: var(--paper); border-top: 1px solid var(--paper-divider); }
 #section-written    { background: var(--paper-dark); }
@@ -306,7 +310,7 @@ section { padding: 5rem 2.5rem; }
 .work-card:nth-child(3n) { border-right: none; }
 .work-card-tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -336,7 +340,7 @@ section { padding: 5rem 2.5rem; }
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
   line-height: 1.65;
 }
@@ -371,7 +375,7 @@ section { padding: 5rem 2.5rem; }
 }
 .project-tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -385,7 +389,7 @@ section { padding: 5rem 2.5rem; }
   margin-bottom: 0.5rem;
 }
 .project-desc {
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -407,7 +411,7 @@ section { padding: 5rem 2.5rem; }
 .bg-card .bg-card-desc { color: #FFFFFF; }
 .bg-card-tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -422,7 +426,7 @@ section { padding: 5rem 2.5rem; }
   line-height: 1.2;
 }
 .bg-card-desc {
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -430,7 +434,7 @@ section { padding: 5rem 2.5rem; }
 /* WRITTEN / HOSTED (wr-*) */
 .wr-subsection-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -466,14 +470,14 @@ section { padding: 5rem 2.5rem; }
 #section-watchread .wr-card:hover .wr-card-link { color: #0A100D; }
 .wr-card-type {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
 .wr-card-title {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 500;
   color: var(--text);
   line-height: 1.4;
@@ -534,7 +538,7 @@ section { padding: 5rem 2.5rem; }
   padding: 0;
   border-radius: 50%;
   border: none;
-  background: var(--text-muted);
+  background: var(--ink);
   opacity: 0.4;
   cursor: pointer;
   transition: opacity 0.15s, background 0.15s;
@@ -548,7 +552,7 @@ section { padding: 5rem 2.5rem; }
 /* EASTER EGG */
 #easteregg {
   background: var(--paper);
-  padding: 3rem 2.5rem;
+  padding: 3rem max(2.5rem, calc((100% - var(--container)) / 2));
   border-top: 1px solid var(--paper-border);
   min-height: 14rem;
 }
@@ -595,7 +599,7 @@ section { padding: 5rem 2.5rem; }
 /* BEYOND */
 #beyond {
   background: var(--mauve);
-  padding: 5rem 2.5rem;
+  padding: 5rem max(2.5rem, calc((100% - var(--container)) / 2));
 }
 #beyond .section-heading { color: var(--ink); }
 .beyond-grid {
@@ -613,7 +617,7 @@ section { padding: 5rem 2.5rem; }
 .beyond-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
 .beyond-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -621,7 +625,7 @@ section { padding: 5rem 2.5rem; }
 }
 .beyond-label--clay { color: var(--clay-deep); }
 .beyond-text {
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
   color: var(--text-soft);
   line-height: 1.6;
 }
@@ -635,14 +639,14 @@ section { padding: 5rem 2.5rem; }
 #connect {
   background: var(--mauve);
   color: var(--ink);
-  padding: 3rem 2.5rem 5rem;
+  padding: 3rem max(2.5rem, calc((100% - var(--container)) / 2)) 5rem;
 }
 .connect-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
-  max-width: 900px;
+  /* No inner cap: #connect already supplies the shared container inset. */
 }
 .connect-heading {
   font-family: var(--font-display);
@@ -656,7 +660,7 @@ section { padding: 5rem 2.5rem; }
   display: block;
   margin-top: 2rem;
   width: 100%;
-  max-width: 260px;
+  max-width: 380px;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 4px;
@@ -664,7 +668,7 @@ section { padding: 5rem 2.5rem; }
 .connect-right { padding-top: calc(clamp(2.5rem, 5vw, 4rem) * 1.05 + 2rem); }
 .connect-tag {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -682,6 +686,13 @@ section { padding: 5rem 2.5rem; }
   align-items: center;
   gap: 1rem;
 }
+/* The two-column track is for the pair of buttons. Everything else in here
+   (divider, newsletter blurb, Kit form) is full-width and must span both,
+   otherwise it gets dealt into the button columns. */
+.connect-actions > .newsletter-divider,
+.connect-actions > .connect-text,
+.connect-actions > .newsletter-form { grid-column: 1 / -1; }
+.connect-actions > .connect-text { margin-bottom: 0; }
 .btn-email {
   background: #0A100D;
   color: #FFFFFF;
@@ -725,7 +736,7 @@ section { padding: 5rem 2.5rem; }
 }
 .newsletter-divider-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -838,7 +849,7 @@ section { padding: 5rem 2.5rem; }
 .site-footer {
   background: var(--mauve);
   border-top: 1px solid var(--mauve-border);
-  padding: 1.5rem 2.5rem;
+  padding: 1.5rem max(2.5rem, calc((100% - var(--container)) / 2));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -856,7 +867,7 @@ section { padding: 5rem 2.5rem; }
   align-items: center;
   gap: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
   color: var(--violet-deep);
   text-decoration: none;
@@ -868,7 +879,7 @@ section { padding: 5rem 2.5rem; }
 .footer-btn:hover { background: var(--mauve-hover); color: #FFFFFF; }
 .site-footer p {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--violet-deep);
   letter-spacing: 0.06em;
 }
@@ -877,7 +888,7 @@ section { padding: 5rem 2.5rem; }
    can't be fetched, so the footer never shows a placeholder or a zero. */
 .visit-count {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--violet-deep);
   letter-spacing: 0.06em;
   opacity: 0.85;
@@ -900,7 +911,7 @@ section { padding: 5rem 2.5rem; }
 
 /* ---------- SHORTS SHELF ---------- */
 .shorts-blurb {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-muted);
   line-height: 1.6;
   margin: 0.6rem 0 1rem;
@@ -976,7 +987,7 @@ section { padding: 5rem 2.5rem; }
   top: 0.5rem;
   left: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #FFFFFF;
@@ -1092,12 +1103,12 @@ section { padding: 5rem 2.5rem; }
 
 /* HERO */
 .post-hero {
-  padding: 8rem 2.5rem 4rem;
+  padding: 8rem max(2.5rem, calc((100% - var(--container)) / 2)) 4rem;
   background: var(--mauve);
 }
 .post-meta {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -1134,7 +1145,7 @@ section { padding: 5rem 2.5rem; }
 .post-image-wrap {
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 0 max(2.5rem, calc((100% - var(--container)) / 2));
   transform: translateY(-2rem);
 }
 .post-image-wrap img {
@@ -1145,7 +1156,7 @@ section { padding: 5rem 2.5rem; }
 }
 .post-image-caption {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1157,7 +1168,7 @@ section { padding: 5rem 2.5rem; }
 .post-content {
   max-width: 680px;
   margin: 0 auto;
-  padding: 3rem 2.5rem 6rem;
+  padding: 3rem max(2.5rem, calc((100% - var(--container)) / 2)) 6rem;
 }
 .post-content p {
   margin-bottom: 1.4rem;
@@ -1196,7 +1207,7 @@ section { padding: 5rem 2.5rem; }
 .tip-emoji { font-size: 1.3rem; flex-shrink: 0; padding-top: 0.1rem; }
 .tip-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--violet-deep);
@@ -1260,7 +1271,7 @@ section { padding: 5rem 2.5rem; }
 }
 .step-number {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink);
@@ -1276,7 +1287,7 @@ section { padding: 5rem 2.5rem; }
 }
 .step-icon { margin-right: 0.45em; }
 .step-desc {
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
   line-height: 1.65;
 }
@@ -1312,16 +1323,17 @@ section { padding: 5rem 2.5rem; }
   display: flex;
   flex-direction: column;
 }
-.price-card--rush { border-color: var(--clay); }
+/* Highlighted card. Was the old rush tier; now marks the free monthly draw. */
+.price-card--feature { border-color: var(--clay); }
 .price-tier {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--violet-deep);
   margin-bottom: 0.6rem;
 }
-.price-card--rush .price-tier { color: var(--ink); }
+.price-card--feature .price-tier { color: var(--ink); }
 .price-amount {
   font-family: var(--font-display);
   font-size: 2.6rem;
@@ -1344,7 +1356,7 @@ section { padding: 5rem 2.5rem; }
   flex-grow: 1;
 }
 .price-features li {
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
   line-height: 1.6;
   padding-left: 1.1rem;
@@ -1357,7 +1369,7 @@ section { padding: 5rem 2.5rem; }
   left: 0;
   color: var(--violet-deep);
 }
-.price-card--rush .price-features li::before { color: var(--ink); }
+.price-card--feature .price-features li::before { color: var(--ink); }
 .btn-buy {
   display: block;
   text-align: center;
@@ -1384,7 +1396,7 @@ section { padding: 5rem 2.5rem; }
 }
 .founding-offer-label {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink);
@@ -1402,7 +1414,7 @@ section { padding: 5rem 2.5rem; }
 }
 
 .pricing-smallprint {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.7;
   margin-top: 1.5rem;
@@ -1439,7 +1451,7 @@ section { padding: 5rem 2.5rem; }
 }
 .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .faq-answer {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
   line-height: 1.7;
   padding: 0 0 1.2rem;
@@ -1449,11 +1461,11 @@ section { padding: 5rem 2.5rem; }
 /* ---------- BOTTOM CTA ---------- */
 .cv-cta {
   background: var(--mauve);
-  padding: 5rem 2.5rem;
+  padding: 5rem max(2.5rem, calc((100% - var(--container)) / 2));
 }
 .cv-cta-heading {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem);
   font-weight: 700;
   line-height: 1.1;
   color: var(--ink);
