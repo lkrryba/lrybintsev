@@ -613,9 +613,7 @@ section { padding: 5rem max(2.5rem, calc((100% - var(--container)) / 2)); }
 .beyond-item {
   background: var(--mauve-soft);
   padding: 1.8rem 1.5rem;
-  transition: background 0.2s;
 }
-.beyond-item:hover { background: var(--mauve-hover); }
 .beyond-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
 .beyond-label {
   font-family: var(--font-mono);
@@ -1026,10 +1024,6 @@ section { padding: 5rem max(2.5rem, calc((100% - var(--container)) / 2)); }
 .connect-social .icon { margin-right: 0.45em; }
 .beyond-icon { color: var(--violet); }
 .beyond-icon--clay { color: var(--clay-deep); }
-.beyond-item:hover .beyond-icon { color: #0A100D; }
-.beyond-item:hover .beyond-label,
-.beyond-item:hover .beyond-text,
-.beyond-item:hover .beyond-text a { color: #FFFFFF; }
 .beyond-icon .icon { width: 1.6rem; height: 1.6rem; stroke-width: 1.75; }
 
 /* =========================================================================
